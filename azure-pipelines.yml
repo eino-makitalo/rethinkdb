@@ -14,14 +14,14 @@ steps:
   displayName: 'Install Cygwin'
 
 - script: |
-    setup.exe -q -P make
-    setup.exe -q -P curl
-    setup.exe -q -P wget
-    setup.exe -q -P patch
-    setup.exe -q -P git
+    refreshenv
+    c:\tools\cygwin\setup.exe -q -P make
+    c:\tools\cygwin\setup.exe -q -P curl
+    c:\tools\cygwin\setup.exe -q -P wget
+    c:\tools\cygwin\setup.exe -q -P patch
+    c:\tools\cygwin\setup.exe -q -P git
     git config --global user.name "Eino"
     git config --global user.email eino.makitalo@eficode.com
-    refreshenv
   displayName: 'Install cygwin tools'
   workingDirectory: c:\tools\cygwin
 
