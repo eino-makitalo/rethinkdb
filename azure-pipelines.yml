@@ -14,13 +14,9 @@ steps:
     choco install cygwin
     choco install cyg-get
     cyg-get make curl wget patch git 
+    setx C:\tools\cygwin\bin;%PATH%
   displayName: 'Install Cygwin'
 
-- pwsh: |
-     $oldpath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
-     $newpath = "C:\tools\cygwin\bin;C:\tools\cygwin\sbin;;$oldpath" 
-     Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newpath
-  displayName: fix path
 
 - pwsh: |
     $NewPathInRegistry = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
