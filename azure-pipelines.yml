@@ -13,14 +13,6 @@ steps:
 - script: choco install cygwin
   displayName: 'Install Cygwin'
 
-- task: BatchScript@1
-  inputs:
-    filename: c:\tools\cygwin\cygwin.bat
-    #arguments: # Optional
-    modifyEnvironment: True # Optional
-    #workingFolder: 
-    #failOnStandardError: false # Optional
-
 - script: |
     setup.exe -q -P make
     setup.exe -q -P curl
@@ -29,6 +21,9 @@ steps:
     setup.exe -q -P git
     git config --global user.name "Eino"
     git config --global user.email eino.makitalo@eficode.com
+  displayName: 'Install cygwin tools'
+
+- bash:
     ./configure
     make -j
   displayName: 'Try to build'
