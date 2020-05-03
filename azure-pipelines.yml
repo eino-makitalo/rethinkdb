@@ -30,7 +30,10 @@ steps:
     Write-Host $NewPathInRegistry
   displayName: show path
 
-- script: dir
+- script: |
+    dir
+    dir  bin
+    dir  sbin
   workingDirectory: c:\tools\cygwin
   displayName: List cygwin dir
     
