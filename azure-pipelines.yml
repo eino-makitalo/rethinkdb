@@ -10,28 +10,31 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- script: choco install cygwin
+- script: | 
+    choco install cygwin
+    choco install cyg-get
+    cyg-get make curl wget patch git 
   displayName: 'Install Cygwin'
 
 - script: refreshenv
   displayName: 'refresh env'
 
 - pwsh: |
+     $oldpath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
+     $newpath = "C:\tools\cygwin\;$oldpath" 
+     Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newpath
+  displayName: fix path
+
+- pwsh: |
     #$NewPathInRegistry = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
     Write-Host $NewPathInRegistry
-  displayName: fix path
+  displayName: show path
     
 
 - script: |  
-    c:\tools\cygwin\setup.exe -q -P make
-    c:\tools\cygwin\setup.exe -q -P curl
-    c:\tools\cygwin\setup.exe -q -P wget
-    c:\tools\cygwin\setup.exe -q -P patch
-    c:\tools\cygwin\setup.exe -q -P git
     git config --global user.name "Eino"
     git config --global user.email eino.makitalo@eficode.com
-  displayName: 'Install cygwin tools'
-  workingDirectory: c:\tools\cygwin
+  displayName: 'Git setup'
 
 - script: where bash
   displayName: 'bash location'
