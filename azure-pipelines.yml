@@ -13,8 +13,16 @@ steps:
 - script: choco install cygwin
   displayName: 'Install Cygwin'
 
-- script: |
-    refreshenv
+- script: refreshenv
+  displayName: 'refresh env'
+
+- pwsh: |
+    #$NewPathInRegistry = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
+    Write-Host $NewPathInRegistry
+  displayName: fix path
+    
+
+- script: |  
     c:\tools\cygwin\setup.exe -q -P make
     c:\tools\cygwin\setup.exe -q -P curl
     c:\tools\cygwin\setup.exe -q -P wget
@@ -22,9 +30,11 @@ steps:
     c:\tools\cygwin\setup.exe -q -P git
     git config --global user.name "Eino"
     git config --global user.email eino.makitalo@eficode.com
-    where bash
   displayName: 'Install cygwin tools'
   workingDirectory: c:\tools\cygwin
+
+- script: where bash
+  displayName: 'bash location'
 
 - bash:
     ./configure
