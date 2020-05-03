@@ -16,9 +16,6 @@ steps:
     cyg-get make curl wget patch git 
   displayName: 'Install Cygwin'
 
-- script: refreshenv
-  displayName: 'refresh env'
-
 - pwsh: |
      $oldpath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
      $newpath = "C:\tools\cygwin\bin;C:\tools\cygwin\sbin;;$oldpath" 
@@ -30,13 +27,8 @@ steps:
     Write-Host $NewPathInRegistry
   displayName: show path
 
-- script: |
-    dir
-    dir  bin
-    dir  sbin
-  workingDirectory: c:\tools\cygwin
-  displayName: List cygwin dir
-    
+- script: refreshenv
+  displayName: 'refresh env'
 
 - script: |  
     git config --global user.name "Eino"
