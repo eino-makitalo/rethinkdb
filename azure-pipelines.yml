@@ -22,6 +22,7 @@ steps:
     c:\tools\cygwin\setup.exe -q -P git
     git config --global user.name "Eino"
     git config --global user.email eino.makitalo@eficode.com
+    where bash
   displayName: 'Install cygwin tools'
   workingDirectory: c:\tools\cygwin
 
