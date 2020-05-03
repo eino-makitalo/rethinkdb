@@ -21,7 +21,9 @@ steps:
     setup.exe -q -P git
     git config --global user.name "Eino"
     git config --global user.email eino.makitalo@eficode.com
+    refreshenv
   displayName: 'Install cygwin tools'
+  workingDirectory: c:\tools\cygwin
 
 - bash:
     ./configure
