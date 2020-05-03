@@ -13,7 +13,22 @@ steps:
 - script: choco install cygwin
   displayName: 'Install Cygwin'
 
+- task: BatchScript@1
+  inputs:
+    filename: c:\tools\cygwin\cygwin.bat
+    #arguments: # Optional
+    modifyEnvironment: True # Optional
+    #workingFolder: 
+    #failOnStandardError: false # Optional
+
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    setup.exe -q -P make
+    setup.exe -q -P curl
+    setup.exe -q -P wget
+    setup.exe -q -P patch
+    setup.exe -q -P git
+    git config --global user.name "Eino"
+    git config --global user.email eino.makitalo@eficode.com
+    ./configure
+    make -j
+  displayName: 'Try to build'
