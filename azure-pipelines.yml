@@ -26,9 +26,13 @@ steps:
   displayName: fix path
 
 - pwsh: |
-    #$NewPathInRegistry = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
+    $NewPathInRegistry = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
     Write-Host $NewPathInRegistry
   displayName: show path
+
+- script: dir
+  workingDirectory: c:\tools\cygwin
+  displayName: List cygwin dir
     
 
 - script: |  
